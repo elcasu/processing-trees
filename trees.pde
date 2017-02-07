@@ -1,3 +1,5 @@
+//import gifAnimation.*;
+
 class Tree {
   float rotationFactor;
   int dir, colorDir;
@@ -61,9 +63,14 @@ int B = 0;
 
 ArrayList<Tree> myTrees;
 
+//GifMaker gifExport;
+
 void setup() {
   size(500, 500);
-  frameRate(6);
+  frameRate(24);
+  
+  //gifExport = new GifMaker(this, "/Users/casu/Documents/anim.gif");
+  
   myTrees = new ArrayList<Tree>();
   myTrees.add(new Tree(width / 2, 0, PI, 3.0));
   myTrees.add(new Tree(width / 2, height, 0, 5.0));
@@ -71,6 +78,13 @@ void setup() {
 
 void draw() {
   background(0);
-  myTrees.get(0).draw();
-  myTrees.get(1).draw();
+  for(int i = 0; i < myTrees.size(); i++) {
+    myTrees.get(i).draw();
+  }
+  //gifExport.setDelay(1);
+  //gifExport.addFrame();
 } //<>//
+
+void mousePressed() {
+  //gifExport.finish();
+}
