@@ -88,7 +88,7 @@ int greenLateral = #50ebc8;
 ArrayList<Tree> myTrees;
 
 void setup() {
-  size(750, 750);
+  size(1000, 1000);
   frameRate(20);
   
   myTrees = new ArrayList<Tree>();
@@ -100,9 +100,8 @@ void setup() {
 
 void draw() {
   setGradient(0, 0, width, height, background1, background2);
-  //background(background1);
   globalLength += lenDir;
-  if(globalLength >= 200 || globalLength <= 0) lenDir *= -1;
+  if(globalLength >= 300 || globalLength <= 0) lenDir *= -1;
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
   }
@@ -115,8 +114,4 @@ void setGradient(float x, float y, float w, float h, color c1, color c2) {
     stroke(c);
     line(x, i, x+w, i);
   }
-}
-
-int nextColor() {
-  return 0;
 }
