@@ -6,7 +6,8 @@ class Tree {
   float theta0;
   float currentColorLevel;
   color color1, color2;
-
+  int currentColorDirection;
+  
   Tree(float xInit, float yInit, float rotInit, float rf) {
     rotationFactor = rf;
     dir = 1;
@@ -17,6 +18,7 @@ class Tree {
     y0 = yInit;
     theta0 = rotInit;
     currentColorLevel = 0;
+    currentColorDirection = 1;
     color1 = color(greenLateral);
     color2 = color(yellow);
   }
@@ -30,12 +32,13 @@ class Tree {
     rotate(theta0);
     rotationFactor += dir * 0.0005;
     rightMod += 0.1;
-    currentColorLevel += 0.01;
+    currentColorLevel += currentColorDirection * 0.01;
     int strokeColor = lerpColor(color1, color2, currentColorLevel);
-    if(currentColorLevel >= 1) {
+    if(currentColorLevel >= 1 || currentColorLevel <= 0) {
       color colorTemp = color1;
       color1 = color2;
       color2 = colorTemp;
+      currentColorDirection *= -1;
     }
     stroke(strokeColor);
     branch(globalLength);
@@ -63,24 +66,20 @@ class Tree {
     }
   }
 }
-
 int R = 0;
 int G = 0x002200;
 int B = 0;
 int globalLength = 1;
 int lenDir = 1;
 float rFactor = 6.0;
-
-int background1 = #0569ff;
-int background2 = #3c5a8c;
-
-int yellow = #fafae9;
-int greenLateral = #50ebc8;
-
+int background1 = #858A93;
+int background2 = #171819;
+int yellow = #F9D3CF;
+int greenLateral = #BC928D;
 ArrayList<Tree> myTrees;
 
 void setup() {
-  size(1000, 1000);
+  size(750, 750);
   frameRate(20);
   
   myTrees = new ArrayList<Tree>();
@@ -89,21 +88,23 @@ void setup() {
   myTrees.add(new Tree(0, height, PI / 4, rFactor));
   myTrees.add(new Tree(width, height, -PI / 4, rFactor));
 }
-
 void draw() {
   setGradient(0, 0, width, height, background1, background2);
   globalLength += lenDir;
   if(globalLength >= 300 || globalLength <= 0) lenDir *= -1;
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
+    //saveFrame("techhouse_feb3/frames/####.png");
   }
-} //<>//
-
+}
 void setGradient(float x, float y, float w, float h, color c1, color c2) {
-  for (float i = y; i <= y+h; i++) {
+  for (float i = y; i <= y+h; i++) { //<>//
     float inter = map(i, y, y+h, 0, 1);
     color c = lerpColor(c1, c2, inter);
     stroke(c);
     line(x, i, x+w, i);
+    
+   
   }
+  //saveFrame("techhouse_feb3/frames/####.png");
 }
