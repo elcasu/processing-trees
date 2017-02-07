@@ -79,7 +79,7 @@ int greenLateral = #BC928D;
 ArrayList<Tree> myTrees;
 
 void setup() {
-  size(750, 750);
+  size(1200, 1200);
   frameRate(20);
   
   myTrees = new ArrayList<Tree>();
@@ -91,7 +91,7 @@ void setup() {
 void draw() {
   setGradient(0, 0, width, height, background1, background2);
   globalLength += lenDir;
-  if(globalLength >= 300 || globalLength <= 0) lenDir *= -1;
+  if(globalLength >= 400 || globalLength <= 0) lenDir *= -1;
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
     //saveFrame("techhouse_feb3/frames/####.png");
