@@ -1,5 +1,3 @@
-//import gifAnimation.*;
-
 class Tree {
   float rotationFactor;
   int dir, colorDir;
@@ -25,20 +23,25 @@ class Tree {
     pushMatrix();
     translate(x0, y0);
     rotate(theta0);
-    rotationFactor += dir * 0.5;
+    rotationFactor += dir * 0.005;
     rightMod += 0.1;
     R += colorDir * (1 * random(0, 5));
     G += colorDir * (4 * random(0, 5));
     B += colorDir * (1 * random(0, 5));
     stroke(R, G, B);
-    //background(B, R, G);
-    branch(100);
+    branch(150);
     popMatrix();
   }
   
   void branch(float len) {
     float theta = PI / rotationFactor;
-    line(0, 0, 0, -len);
+    
+    beginShape(LINES);
+    vertex(0, 0);
+    vertex(0, -len);
+    endShape();
+    
+    //line(0, 0, 0, -len);
     translate(0, -len);
     
     len *= 0.66;
@@ -63,17 +66,15 @@ int B = 0;
 
 ArrayList<Tree> myTrees;
 
-//GifMaker gifExport;
-
 void setup() {
-  size(500, 500);
-  frameRate(24);
-  
-  //gifExport = new GifMaker(this, "/Users/casu/Documents/anim.gif");
+  size(750, 750);
+  frameRate(20);
   
   myTrees = new ArrayList<Tree>();
   myTrees.add(new Tree(width / 2, 0, PI, 3.0));
   myTrees.add(new Tree(width / 2, height, 0, 5.0));
+  myTrees.add(new Tree(0, height / 2, PI / 2, 5.0));
+  myTrees.add(new Tree(width, height / 2, -PI / 2, 5.0));
 }
 
 void draw() {
@@ -81,10 +82,4 @@ void draw() {
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
   }
-  //gifExport.setDelay(1);
-  //gifExport.addFrame();
 } //<>//
-
-void mousePressed() {
-  //gifExport.finish();
-}
