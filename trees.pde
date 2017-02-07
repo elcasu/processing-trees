@@ -36,12 +36,7 @@ class Tree {
   void branch(float len) {
     float theta = PI / rotationFactor;
     
-    beginShape(LINES);
-    vertex(0, 0);
-    vertex(0, -len);
-    endShape();
-    
-    //line(0, 0, 0, -len);
+    line(0, 0, 0, -len);
     translate(0, -len);
     
     len *= 0.66;
@@ -65,7 +60,7 @@ int G = 0x002200;
 int B = 0;
 int globalLength = 1;
 int lenDir = 1;
-float rFactor = 2.0;
+float rFactor = 6.0;
 
 ArrayList<Tree> myTrees;
 
