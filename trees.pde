@@ -33,18 +33,10 @@ class Tree {
     currentColorLevel += 0.01;
     int strokeColor = lerpColor(color1, color2, currentColorLevel);
     if(currentColorLevel >= 1) {
-      println(color1);
-      println(color2);
-      println("----------------");
       color colorTemp = color1;
       color1 = color2;
       color2 = colorTemp;
     }
-    /*
-    R += colorDir * (1 * random(0, 5));
-    G += colorDir * (4 * random(0, 5));
-    B += colorDir * (1 * random(0, 5));
-    */
     stroke(strokeColor);
     branch(globalLength);
     popMatrix();
