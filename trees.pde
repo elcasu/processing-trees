@@ -23,13 +23,13 @@ class Tree {
     pushMatrix();
     translate(x0, y0);
     rotate(theta0);
-    rotationFactor += dir * 0.005;
+    rotationFactor += dir * 0.0005;
     rightMod += 0.1;
     R += colorDir * (1 * random(0, 5));
     G += colorDir * (4 * random(0, 5));
     B += colorDir * (1 * random(0, 5));
     stroke(R, G, B);
-    branch(150);
+    branch(globalLength);
     popMatrix();
   }
   
@@ -63,6 +63,9 @@ class Tree {
 int R = 0;
 int G = 0x002200;
 int B = 0;
+int globalLength = 1;
+int lenDir = 1;
+float rFactor = 2.0;
 
 ArrayList<Tree> myTrees;
 
@@ -71,14 +74,16 @@ void setup() {
   frameRate(20);
   
   myTrees = new ArrayList<Tree>();
-  myTrees.add(new Tree(width / 2, 0, PI, 3.0));
-  myTrees.add(new Tree(width / 2, height, 0, 5.0));
-  myTrees.add(new Tree(0, height / 2, PI / 2, 5.0));
-  myTrees.add(new Tree(width, height / 2, -PI / 2, 5.0));
+  myTrees.add(new Tree(width / 2, 0, PI, rFactor));
+  myTrees.add(new Tree(width / 2, height, 0, rFactor));
+  myTrees.add(new Tree(0, height / 2, PI / 2, rFactor));
+  myTrees.add(new Tree(width, height / 2, -PI / 2, rFactor));
 }
 
 void draw() {
   background(0);
+  globalLength += lenDir;
+  if(globalLength >= 170 || globalLength <= 0) lenDir *= -1;
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
   }
