@@ -19,8 +19,8 @@ class Tree {
     theta0 = rotInit;
     currentColorLevel = 0;
     currentColorDirection = 1;
-    color1 = color(greenLateral);
-    color2 = color(yellow);
+    color1 = color(drawColor2);
+    color2 = color(drawColor1);
   }
   
   void draw() {
@@ -74,13 +74,15 @@ int lenDir = 1;
 float rFactor = 6.0;
 int background1 = #858A93;
 int background2 = #171819;
-int yellow = #F9D3CF;
-int greenLateral = #BC928D;
+int drawColor1 = #F9D3CF;
+int drawColor2 = #BC928D;
 ArrayList<Tree> myTrees;
+PGraphics pg;
 
 void setup() {
-  size(1200, 1200);
-  frameRate(20);
+  frameRate(25);
+  size(1200, 1200, P2D);
+  pg = createGraphics(width, height);
   
   myTrees = new ArrayList<Tree>();
   myTrees.add(new Tree(0, 0, -(PI + PI / 4), rFactor));
@@ -88,23 +90,26 @@ void setup() {
   myTrees.add(new Tree(0, height, PI / 4, rFactor));
   myTrees.add(new Tree(width, height, -PI / 4, rFactor));
 }
+
 void draw() {
   setGradient(0, 0, width, height, background1, background2);
   globalLength += lenDir;
-  if(globalLength >= 400 || globalLength <= 0) lenDir *= -1;
+  if(globalLength >= 450 || globalLength <= 0) lenDir *= -1;
+  
+  pg.beginDraw();
   for(int i = 0; i < myTrees.size(); i++) {
-    myTrees.get(i).draw();
-    //saveFrame("techhouse_feb3/frames/####.png");
+    myTrees.get(i).draw(); //<>//
   }
+  pg.endDraw();
+  //saveFrame("techhouse_feb3/frames/####.png");
 }
+
 void setGradient(float x, float y, float w, float h, color c1, color c2) {
   for (float i = y; i <= y+h; i++) { //<>//
     float inter = map(i, y, y+h, 0, 1);
     color c = lerpColor(c1, c2, inter);
     stroke(c);
     line(x, i, x+w, i);
-    
-   
   }
   //saveFrame("techhouse_feb3/frames/####.png");
 }
