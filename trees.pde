@@ -35,9 +35,6 @@ class Tree {
     currentColorLevel += currentColorDirection * 0.01;
     int strokeColor = lerpColor(color1, color2, currentColorLevel);
     if(currentColorLevel >= 1 || currentColorLevel <= 0) {
-      color colorTemp = color1;
-      color1 = color2;
-      color2 = colorTemp;
       currentColorDirection *= -1;
     }
     stroke(strokeColor);
@@ -80,7 +77,7 @@ ArrayList<Tree> myTrees;
 PGraphics pg;
 
 void setup() {
-  frameRate(25);
+  frameRate(20);
   size(1200, 1200, P2D);
   pg = createGraphics(width, height);
   
@@ -98,10 +95,10 @@ void draw() {
   
   pg.beginDraw();
   for(int i = 0; i < myTrees.size(); i++) {
-    myTrees.get(i).draw(); //<>//
+    myTrees.get(i).draw();
   }
   pg.endDraw();
-  //saveFrame("techhouse_feb3/frames/####.png");
+  //saveFrame("techhouse_feb3/frames/####.png"); //<>//
 }
 
 void setGradient(float x, float y, float w, float h, color c1, color c2) {
