@@ -13,7 +13,7 @@ class Tree {
     dir = 1;
     colorDir = 1;
     rightMod = 0.01;
-    leftMod = 0.0;
+    leftMod = 0.01;
     x0 = xInit;
     y0 = yInit;
     theta0 = rotInit;
@@ -30,8 +30,9 @@ class Tree {
     pushMatrix();
     translate(x0, y0);
     rotate(theta0);
-    rotationFactor += dir * 0.0005;
+    rotationFactor += dir * 0.00005;
     rightMod += 0.1;
+    leftMod += 0.1;
     currentColorLevel += currentColorDirection * 0.01;
     int strokeColor = lerpColor(color1, color2, currentColorLevel);
     if(currentColorLevel >= 1 || currentColorLevel <= 0) {
@@ -57,7 +58,7 @@ class Tree {
       popMatrix();
       
       pushMatrix();
-      rotate(-theta + rightMod);
+      rotate(-theta - rightMod);
       branch(len);
       popMatrix();
     }
@@ -78,7 +79,7 @@ PGraphics pg;
 
 void setup() {
   frameRate(20);
-  size(1200, 1200, P2D);
+  size(1200, 1200, P3D);
   pg = createGraphics(width, height);
   
   myTrees = new ArrayList<Tree>();
@@ -97,12 +98,12 @@ void draw() {
   for(int i = 0; i < myTrees.size(); i++) {
     myTrees.get(i).draw();
   }
-  pg.endDraw();
-  //saveFrame("techhouse_feb3/frames/####.png"); //<>//
+  pg.endDraw(); //<>//
+  //saveFrame("techhouse_feb3/frames/####.png");
 }
 
 void setGradient(float x, float y, float w, float h, color c1, color c2) {
-  for (float i = y; i <= y+h; i++) { //<>//
+  for (float i = y; i <= y+h; i++) {
     float inter = map(i, y, y+h, 0, 1);
     color c = lerpColor(c1, c2, inter);
     stroke(c);
