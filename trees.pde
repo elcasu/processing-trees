@@ -76,10 +76,11 @@ int drawColor1 = #F9D3CF;
 int drawColor2 = #BC928D;
 ArrayList<Tree> myTrees;
 PGraphics pg;
+int MAX_LENGTH = 500;
 
 void setup() {
   frameRate(20);
-  size(1200, 1200, P3D);
+  size(1200, 1200, P2D);
   pg = createGraphics(width, height);
   
   myTrees = new ArrayList<Tree>();
@@ -92,7 +93,7 @@ void setup() {
 void draw() {
   setGradient(0, 0, width, height, background1, background2);
   globalLength += lenDir;
-  if(globalLength >= 450 || globalLength <= 0) lenDir *= -1;
+  if(globalLength >= MAX_LENGTH || globalLength <= 0) lenDir *= -1;
   
   pg.beginDraw();
   for(int i = 0; i < myTrees.size(); i++) {
